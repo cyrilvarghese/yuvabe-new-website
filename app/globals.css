@@ -1,26 +1,122 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-manrope: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  --font-playfair: "Playfair Display", "Iowan Old Style", "Times New Roman", serif;
+  --background: #040a14;
+  --foreground: #e9eef8;
+  --muted-foreground: #9aa8c1;
+  --border: #1b2b43;
+  --surface: #0b1628;
+  --muted: #132338;
+  --ring: #75a8ff;
+  --card-foreground: #e9eef8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-ring: var(--ring);
+  --color-card-foreground: var(--card-foreground);
+  --font-sans: var(--font-manrope);
+  --font-title: var(--font-playfair);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.font-title {
+  font-family: var(--font-playfair), serif;
+}
+
+.section-kicker {
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+}
+
+.section-heading {
+  margin-top: 0.75rem;
+  max-width: 60rem;
+  text-wrap: balance;
+  font-family: var(--font-playfair), serif;
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  line-height: 1.08;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 26s linear infinite;
+  will-change: transform;
+}
+
+.marquee-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.14) 7%,
+    rgba(0, 0, 0, 0.78) 15%,
+    rgba(0, 0, 0, 1) 24%,
+    rgba(0, 0, 0, 1) 76%,
+    rgba(0, 0, 0, 0.78) 85%,
+    rgba(0, 0, 0, 0.14) 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.14) 7%,
+    rgba(0, 0, 0, 0.78) 15%,
+    rgba(0, 0, 0, 1) 24%,
+    rgba(0, 0, 0, 1) 76%,
+    rgba(0, 0, 0, 0.78) 85%,
+    rgba(0, 0, 0, 0.14) 93%,
+    transparent 100%
+  );
 }
