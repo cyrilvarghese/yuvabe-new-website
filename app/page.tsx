@@ -4,12 +4,18 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   Apple,
   ArrowRight,
+  BarChart3,
+  Bot,
   Briefcase,
   Chrome,
   Coins,
   CreditCard,
+  LayoutDashboard,
+  LucideIcon,
+  Network,
   Rocket,
   Sparkles,
+  WandSparkles,
 } from "lucide-react";
 import { BackgroundFx } from "@/components/site/background-fx";
 import { LogoMarquee } from "@/components/site/logo-marquee";
@@ -34,6 +40,8 @@ type CaseStudy = {
   title: string;
   summary: string;
   stack: string;
+  span: string;
+  icon: LucideIcon;
 };
 
 type InsightPost = {
@@ -72,16 +80,43 @@ const caseStudies: CaseStudy[] = [
     title: "Founder Intelligence Dashboard",
     summary: "Built a unified decision cockpit so founders could align product and growth moves every week.",
     stack: "Next.js, Postgres, event pipelines",
+    span: "lg:col-span-4",
+    icon: LayoutDashboard,
   },
   {
     title: "Ops Copilot for Service Teams",
     summary: "Converted fragmented workflows into one AI-assisted workspace with faster handoffs and execution.",
     stack: "React, LLM orchestration, internal tools",
+    span: "lg:col-span-2",
+    icon: Bot,
   },
   {
     title: "Vertical SaaS Replatform",
     summary: "Replatformed a legacy SaaS product into a scalable system that accelerated feature delivery.",
     stack: "Design system, API layer, CI/CD",
+    span: "lg:col-span-2",
+    icon: Network,
+  },
+  {
+    title: "Growth Command Center",
+    summary: "Unified paid, lifecycle, and product analytics into one system to improve CAC payback decisions.",
+    stack: "Attribution model, warehouse sync, campaign ops",
+    span: "lg:col-span-2",
+    icon: BarChart3,
+  },
+  {
+    title: "AI Onboarding Flow",
+    summary: "Redesigned activation journeys with AI-guided setup and reduced first-value time for new users.",
+    stack: "UX research, onboarding UX, event instrumentation",
+    span: "lg:col-span-2",
+    icon: WandSparkles,
+  },
+  {
+    title: "Platform Migration Program",
+    summary: "Delivered a phased migration across product and data layers without disrupting live customer traffic.",
+    stack: "Platform architecture, migration playbooks, reliability",
+    span: "lg:col-span-6",
+    icon: Rocket,
   },
 ];
 
@@ -174,29 +209,32 @@ export default function Home() {
       <section id="work" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
         <Reveal>
           <p className="section-kicker">Work</p>
-          <p className="mt-3 max-w-5xl text-balance text-[2rem] font-medium leading-[1.15] tracking-[-0.015em] text-white/92">
-            <span className="text-white">
+          <div className="mt-3 max-w-5xl text-balance text-[2rem] font-medium leading-[1.15] tracking-[-0.015em] text-[#a5b3cca1]">
+            <p className="text-white">
               Products shipped. Traction accelerated.
-            </span>{" "}
-            Move from roadmap to revenue with one execution partner. We design, build, and scale startup products
-            with AI-native systems that compound speed and outcomes.
-          </p>
+            </p>{" "}
+            Move from roadmap to revenue with one execution partner.
+          </div>
         </Reveal>
-        <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          {caseStudies.map((item, index) => (
-            <Reveal key={item.title} delay={reduceMotion ? 0 : 0.05 * index}>
-              <Card className="h-full">
-                <CardHeader>
-                  <CardTitle>{item.title}</CardTitle>
-                  <CardDescription>{item.summary}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{item.stack}</p>
-                </CardContent>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
+          <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-6">
+            {caseStudies.map((item, index) => (
+              <Reveal key={item.title} className={item.span} delay={reduceMotion ? 0 : 0.05 * index}>
+                <Card className="flex h-full min-h-[31rem] flex-col overflow-hidden lg:min-h-[34rem]">
+                  <CardHeader>
+                    <CardTitle>{item.title}</CardTitle>
+                    <CardDescription>{item.summary}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex flex-1 flex-col justify-between gap-8">
+                    <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{item.stack}</p>
+                    <div className="relative flex min-h-48 items-center justify-center overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-[#121f3a] via-[#16284b] to-[#0e1830]">
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(132,169,238,0.28),rgba(132,169,238,0)_52%)]" />
+                      <item.icon className="relative z-10 size-28 text-white/82 lg:size-36" strokeWidth={1.45} />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
       </section>
 
       <section id="ai-dna" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
