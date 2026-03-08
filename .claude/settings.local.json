@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -f \"c:/Users/cyril varghese/code/yuvabe-new-website/package-lock.json\")",
+      "Bash(npm install)",
+      "Bash(npm run build)"
+    ]
+  }
+}

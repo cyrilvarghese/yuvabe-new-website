@@ -31,6 +31,11 @@ Write premium, founder-focused copy that sounds decisive, outcome-driven, and AI
 6. Avoid buzzword stacking and generic claims.
 7. Reinforce this narrative: "we do not just build fast; we help you build the right thing, then iterate to traction."
 
+##References for case study(contains master sales deck)
+./references/master-deck.pdf 
+
+
+
 ## AI-first DNA Requirements
 - Mention AI-first DNA in hero or immediately below hero.
 - Frame AI as practical leverage:
@@ -55,3 +60,12 @@ Before finalizing copy:
 3. Is AI-first positioning explicit and credible?
 4. Are CTAs clear, distinct, and conversion-oriented?
 5. Is every sentence necessary?
+
+## F-Pattern Scannability (Concise)
+- Lead with the strongest value sentence first (top-left attention zone).
+- Put the core message in the first 2 lines; avoid burying value below.
+- Front-load key words in headings, bullets, and paragraph starts.
+- Keep paragraphs short (1 idea, 1-2 lines where possible).
+- Use clear subheads/bullets as scan anchors every few lines.
+- Emphasize one phrase per block; do not emphasize everything.
+- Prefer active verbs and concrete outcomes over abstract claims.

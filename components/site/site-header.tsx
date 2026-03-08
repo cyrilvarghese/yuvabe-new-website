@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import { motion, useAnimationControls, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 type NavItem = {
@@ -10,8 +14,48 @@ type SiteHeaderProps = {
 };
 
 export function SiteHeader({ navItems }: SiteHeaderProps) {
+  const controls = useAnimationControls();
+  const reduceMotion = useReducedMotion();
+  const prevScrollRef = useRef(0);
+
+  useEffect(() => {
+    if (reduceMotion) {
+      controls.set({ opacity: 1, y: 0 });
+      return;
+    }
+
+    const playReveal = () => {
+      controls.set({ opacity: 0, y: -24 });
+      void controls.start({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+      });
+    };
+
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      if (prevScrollRef.current > 120 && currentY <= 120) {
+        playReveal();
+      }
+      prevScrollRef.current = currentY;
+    };
+
+    prevScrollRef.current = window.scrollY;
+    playReveal();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [controls, reduceMotion]);
+
   return (
-    <header className="sticky top-0 z-50 bg-transparent">
+    <motion.header
+      className="relative z-50 bg-transparent"
+      initial={reduceMotion ? false : { opacity: 0, y: -24 }}
+      animate={controls}
+    >
       <div className="mx-auto flex h-24 w-full max-w-[1440px] items-center gap-10 px-8 lg:px-12">
         <a href="#home" className="flex items-center gap-5">
           <div className="flex items-center gap-4">
@@ -60,6 +104,6 @@ export function SiteHeader({ navItems }: SiteHeaderProps) {
           <a href="#work">Work</a>
         </Button>
       </div>
-    </header>
+    </motion.header>
   );
 }

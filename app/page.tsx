@@ -36,6 +36,12 @@ type CaseStudy = {
   stack: string;
 };
 
+type InsightPost = {
+  title: string;
+  excerpt: string;
+  tag: string;
+};
+
 const navItems: NavItem[] = [
   { label: "About", href: "#about" },
   { label: "Work", href: "#work" },
@@ -76,6 +82,27 @@ const caseStudies: CaseStudy[] = [
     title: "Vertical SaaS Replatform",
     summary: "Replatformed a legacy SaaS product into a scalable system that accelerated feature delivery.",
     stack: "Design system, API layer, CI/CD",
+  },
+];
+
+const insightPosts: InsightPost[] = [
+  {
+    title: "In an AI world, build is cheap. Clarity is expensive.",
+    excerpt:
+      "Why startup advantage is shifting from execution capacity to decision quality, and how founders can choose better problems to solve.",
+    tag: "AI-first thinking",
+  },
+  {
+    title: "From prompt to product: shipping AI features users trust",
+    excerpt:
+      "A practical framework to turn AI capabilities into workflows that are reliable, measurable, and sticky in production.",
+    tag: "Product + engineering",
+  },
+  {
+    title: "Growth loops for AI-native startups",
+    excerpt:
+      "How product telemetry, experimentation, and distribution systems combine to compound traction after launch.",
+    tag: "Growth systems",
   },
 ];
 
@@ -144,6 +171,58 @@ export default function Home() {
         <Separator />
       </section>
 
+      <section id="work" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
+        <Reveal>
+          <p className="section-kicker">Work</p>
+          <p className="mt-3 max-w-5xl text-balance text-[2rem] font-medium leading-[1.15] tracking-[-0.015em] text-white/92">
+            <span className="text-white">
+              Products shipped. Traction accelerated.
+            </span>{" "}
+            Move from roadmap to revenue with one execution partner. We design, build, and scale startup products
+            with AI-native systems that compound speed and outcomes.
+          </p>
+        </Reveal>
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          {caseStudies.map((item, index) => (
+            <Reveal key={item.title} delay={reduceMotion ? 0 : 0.05 * index}>
+              <Card className="h-full">
+                <CardHeader>
+                  <CardTitle>{item.title}</CardTitle>
+                  <CardDescription>{item.summary}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{item.stack}</p>
+                </CardContent>
+              </Card>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section id="ai-dna" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
+        <Reveal>
+          <p className="section-kicker">AI-first DNA</p>
+          <h2 className="section-heading">What to build is now the edge.</h2>
+          <p className="mt-4 max-w-3xl text-muted-foreground">
+            Our thinking on discovery, iteration, and AI-first product decisions for founders moving in compressed
+            markets.
+          </p>
+        </Reveal>
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          {insightPosts.map((post, index) => (
+            <Reveal key={post.title} delay={reduceMotion ? 0 : 0.05 * index}>
+              <Card className="h-full">
+                <CardHeader>
+                  <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{post.tag}</p>
+                  <CardTitle>{post.title}</CardTitle>
+                  <CardDescription>{post.excerpt}</CardDescription>
+                </CardHeader>
+              </Card>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       <section id="services" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
         <Reveal>
           <p className="section-kicker">Services</p>
@@ -157,65 +236,6 @@ export default function Home() {
                   <CardTitle>{service.title}</CardTitle>
                   <CardDescription>{service.description}</CardDescription>
                 </CardHeader>
-              </Card>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section id="ai-dna" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
-        <Reveal>
-          <p className="section-kicker">AI-first DNA</p>
-          <h2 className="section-heading">AI-first DNA in everything we do.</h2>
-          <p className="mt-4 max-w-3xl text-muted-foreground">
-            We design, build, and scale with AI at the core so founders can move faster, automate smarter, and grow
-            with stronger margins.
-          </p>
-        </Reveal>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          <Reveal delay={reduceMotion ? 0 : 0.03}>
-            <Card>
-              <CardHeader>
-                <CardTitle>AI-Native Product Strategy</CardTitle>
-                <CardDescription>Prioritize roadmap bets around automation, defensibility, and growth loops.</CardDescription>
-              </CardHeader>
-            </Card>
-          </Reveal>
-          <Reveal delay={reduceMotion ? 0 : 0.06}>
-            <Card>
-              <CardHeader>
-                <CardTitle>AI-Augmented Experience Design</CardTitle>
-                <CardDescription>Design workflows where AI adds speed, clarity, and trust for end users.</CardDescription>
-              </CardHeader>
-            </Card>
-          </Reveal>
-          <Reveal delay={reduceMotion ? 0 : 0.09}>
-            <Card>
-              <CardHeader>
-                <CardTitle>AI-Powered Growth Execution</CardTitle>
-                <CardDescription>Connect product data and marketing systems to scale acquisition efficiently.</CardDescription>
-              </CardHeader>
-            </Card>
-          </Reveal>
-        </div>
-      </section>
-
-      <section id="work" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
-        <Reveal>
-          <p className="section-kicker">Work</p>
-          <h2 className="section-heading">Products shipped. Traction accelerated.</h2>
-        </Reveal>
-        <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          {caseStudies.map((item, index) => (
-            <Reveal key={item.title} delay={reduceMotion ? 0 : 0.05 * index}>
-              <Card className="h-full">
-                <CardHeader>
-                  <CardTitle>{item.title}</CardTitle>
-                  <CardDescription>{item.summary}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{item.stack}</p>
-                </CardContent>
               </Card>
             </Reveal>
           ))}
