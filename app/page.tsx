@@ -24,7 +24,7 @@ import { SiteHeader } from "@/components/site/site-header";
 import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 type NavItem = {
@@ -49,6 +49,7 @@ type InsightPost = {
   title: string;
   excerpt: string;
   tag: string;
+  href: string;
 };
 
 const navItems: NavItem[] = [
@@ -60,19 +61,19 @@ const navItems: NavItem[] = [
 const services: Service[] = [
   {
     title: "Product Strategy",
-    description: "Define the right product bets, roadmap, and release priorities before you burn sprint cycles.",
+    description: "Prioritize high-leverage roadmap bets so each sprint moves activation, retention, or revenue.",
   },
   {
     title: "UX/UI Systems",
-    description: "Design experiences that improve activation, retention, and customer confidence from day one.",
+    description: "Design onboarding and conversion journeys that reduce drop-off and increase user trust.",
   },
   {
     title: "Product Engineering",
-    description: "Ship production-ready products with scalable architecture built for speed, iteration, and growth.",
+    description: "Ship production-ready releases fast with architecture built for reliability and iteration.",
   },
   {
     title: "Digital Marketing",
-    description: "Turn launches into traction with execution across channels tied to product and revenue outcomes.",
+    description: "Turn launches into pipeline with channel execution tied to product signals and CAC efficiency.",
   },
 ];
 
@@ -123,22 +124,25 @@ const caseStudies: CaseStudy[] = [
 
 const insightPosts: InsightPost[] = [
   {
-    title: "In an AI world, build is cheap. Clarity is expensive.",
+    title: "Choose the right roadmap before you build",
     excerpt:
-      "Why startup advantage is shifting from execution capacity to decision quality, and how founders can choose better problems to solve.",
-    tag: "AI-first thinking",
+      "How founders prioritize high-leverage bets, cut rework, and accelerate time to traction with AI-assisted discovery.",
+    tag: "Roadmap strategy",
+    href: "#",
   },
   {
-    title: "From prompt to product: shipping AI features users trust",
+    title: "Ship AI features users trust in production",
     excerpt:
-      "A practical framework to turn AI capabilities into workflows that are reliable, measurable, and sticky in production.",
+      "A practical guide to reliability, UX safeguards, and measurement so AI features improve retention instead of adding risk.",
     tag: "Product + engineering",
+    href: "#",
   },
   {
-    title: "Growth loops for AI-native startups",
+    title: "Design growth loops that compound weekly",
     excerpt:
-      "How product telemetry, experimentation, and distribution systems combine to compound traction after launch.",
-    tag: "Growth systems",
+      "Use product signals and marketing systems together to shorten CAC payback and scale predictable demand.",
+    tag: "Growth execution",
+    href: "#",
   },
 ];
 
@@ -161,41 +165,33 @@ export default function Home() {
 
       <section
         id="about"
-        className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] w-full max-w-7xl items-center px-6 py-10 lg:px-10"
+        className="relative z-10 mx-auto flex min-h-[calc(100svh-5rem)] w-full max-w-7xl items-start px-4 py-6 sm:min-h-[calc(100vh-6rem)] sm:px-6 sm:py-10 lg:items-center lg:px-10"
       >
-        <Reveal className="mx-auto flex max-w-5xl flex-col items-center text-center">
-          <Badge className="mb-4 gap-2">
+        <Reveal className="mx-auto flex w-full max-w-5xl flex-col items-center text-center">
+          <Badge className="mb-4 gap-2 text-[0.66rem] sm:text-xs">
             <Sparkles className="size-3" />
             AI-first Product Studio for Startups
           </Badge>
-          <h1 className="font-title text-5xl leading-[1.02] tracking-tight text-balance sm:text-6xl lg:text-[5.5rem]">
-            Build fast.
+          <h1 className="font-title text-[clamp(2.55rem,12.8vw,5.5rem)] font-semibold leading-[0.98] tracking-[-0.01em] text-balance sm:font-normal sm:leading-[1.02] sm:tracking-tight">
+            Build the right
             <br />
-            Scale smarter.
+            product faster.
           </h1>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground sm:text-2xl">
-            From product strategy and engineering to digital marketing, Yuvabe Studios helps founders turn ideas into
-            shipped products, real traction, and measurable growth with AI-first DNA in everything we do.
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg lg:text-2xl">
+            We help founders decide what to build, ship faster, and grow with measurable outcomes. Strategy, design,
+            engineering, and growth run in one AI-first execution loop.
           </p>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-7 flex w-full max-w-sm items-stretch sm:max-w-none sm:items-center sm:justify-center">
             <Button
               asChild
               variant="primary"
               size="lg"
-              className="w-[14.5rem]"
+              className="w-full sm:w-[14.5rem]"
             >
-              <a href="#work">
-                See Case Studies
+              <a href="#process">
+                Start Your Build
                 <ArrowRight className="size-4" />
               </a>
-            </Button>
-            <Button
-              asChild
-              variant="secondary"
-              size="lg"
-              className="w-[14.5rem]"
-            >
-              <a href="#process">Our Process</a>
             </Button>
           </div>
 
@@ -212,9 +208,9 @@ export default function Home() {
           <p className="section-kicker">Work</p>
           <div className="mt-3 max-w-5xl text-balance text-[2rem] font-medium leading-[1.15] tracking-[-0.015em] text-[#a5b3cca1]">
             <p className="text-white">
-              Products shipped. Traction accelerated.
+              Launch faster. Reach revenue sooner.
             </p>{" "}
-            Move from roadmap to revenue with one execution partner.
+            Turn roadmap bets into shipped releases, adoption, and compounding traction with one execution partner.
           </div>
         </Reveal>
         <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-6">
@@ -229,21 +225,28 @@ export default function Home() {
       <section id="ai-dna" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
         <Reveal>
           <p className="section-kicker">AI-first DNA</p>
-          <h2 className="section-heading">What to build is now the edge.</h2>
+          <h2 className="section-heading">AI-first playbooks for founders.</h2>
           <p className="mt-4 max-w-3xl text-muted-foreground">
-            Our thinking on discovery, iteration, and AI-first product decisions for founders moving in compressed
-            markets.
+            Practical insights on deciding what to build, automating execution, and improving growth economics.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-5 lg:grid-cols-3">
           {insightPosts.map((post, index) => (
             <Reveal key={post.title} delay={reduceMotion ? 0 : 0.05 * index}>
-              <Card className="h-full">
-                <CardHeader>
+              <Card className="flex h-full flex-col">
+                <CardHeader className="flex-1">
                   <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{post.tag}</p>
                   <CardTitle>{post.title}</CardTitle>
                   <CardDescription>{post.excerpt}</CardDescription>
                 </CardHeader>
+                <CardContent className="pt-0">
+                  <Button asChild variant="secondary" size="sm">
+                    <a href={post.href}>
+                      Read more
+                      <ArrowRight className="size-4" />
+                    </a>
+                  </Button>
+                </CardContent>
               </Card>
             </Reveal>
           ))}
@@ -253,7 +256,7 @@ export default function Home() {
       <section id="services" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
         <Reveal>
           <p className="section-kicker">Services</p>
-          <h2 className="section-heading">One team across product, engineering, and growth.</h2>
+          <h2 className="section-heading">One team from product bets to growth outcomes.</h2>
         </Reveal>
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {services.map((service, index) => (
@@ -272,12 +275,12 @@ export default function Home() {
       <section id="process" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
         <Reveal>
           <p className="section-kicker">Process</p>
-          <h2 className="section-heading">Discover. Design. Develop. Deploy. Scale.</h2>
+          <h2 className="section-heading">From idea to traction in five loops.</h2>
         </Reveal>
         <Reveal className="mt-10">
           <Card className="p-6 md:p-8">
             <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-              {["Discover", "Define", "Design", "Develop", "Deploy"].map((step, idx) => (
+              {["Prioritize", "Prototype", "Build", "Launch", "Scale"].map((step, idx) => (
                 <li key={step} className="rounded-lg border border-border bg-muted/25 p-4">
                   <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">0{idx + 1}</p>
                   <p className="mt-2 text-lg font-semibold">{step}</p>
@@ -291,10 +294,10 @@ export default function Home() {
       <section id="career" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
         <Reveal>
           <p className="section-kicker">Career</p>
-          <h2 className="section-heading">We hire builders who care about product quality and shipping velocity.</h2>
+          <h2 className="section-heading">Join the team building outcomes for startups.</h2>
           <p className="mt-4 max-w-3xl text-muted-foreground">
-            We are building a studio culture where designers and engineers collaborate deeply, move fast, and obsess
-            over user outcomes.
+            Work with product thinkers, designers, and engineers who ship fast and stay accountable to measurable
+            founder outcomes.
           </p>
           <Button asChild variant="secondary" size="default" className="mt-8">
             <a href="#career">View Open Roles</a>
