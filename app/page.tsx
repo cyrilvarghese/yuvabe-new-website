@@ -18,12 +18,13 @@ import {
   WandSparkles,
 } from "lucide-react";
 import { BackgroundFx } from "@/components/site/background-fx";
+import { CaseStudyCard } from "@/components/site/case-study-card";
 import { LogoMarquee } from "@/components/site/logo-marquee";
 import { SiteHeader } from "@/components/site/site-header";
 import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 type NavItem = {
@@ -216,25 +217,13 @@ export default function Home() {
             Move from roadmap to revenue with one execution partner.
           </div>
         </Reveal>
-          <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-6">
-            {caseStudies.map((item, index) => (
-              <Reveal key={item.title} className={item.span} delay={reduceMotion ? 0 : 0.05 * index}>
-                <Card className="flex h-full min-h-[31rem] flex-col overflow-hidden lg:min-h-[34rem]">
-                  <CardHeader>
-                    <CardTitle>{item.title}</CardTitle>
-                    <CardDescription>{item.summary}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex flex-1 flex-col justify-between gap-8">
-                    <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{item.stack}</p>
-                    <div className="relative flex min-h-48 items-center justify-center overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-[#121f3a] via-[#16284b] to-[#0e1830]">
-                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(132,169,238,0.28),rgba(132,169,238,0)_52%)]" />
-                      <item.icon className="relative z-10 size-28 text-white/82 lg:size-36" strokeWidth={1.45} />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
+        <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-6">
+          {caseStudies.map((item, index) => (
+            <Reveal key={item.title} className={item.span} delay={reduceMotion ? 0 : 0.05 * index}>
+              <CaseStudyCard title={item.title} summary={item.summary} stack={item.stack} icon={item.icon} />
+            </Reveal>
+          ))}
+        </div>
       </section>
 
       <section id="ai-dna" className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 lg:px-10">
