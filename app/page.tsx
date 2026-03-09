@@ -43,6 +43,7 @@ type CaseStudy = {
   stack: string;
   span: string;
   icon: LucideIcon;
+  visual?: "default" | "dots";
 };
 
 type InsightPost = {
@@ -112,6 +113,7 @@ const caseStudies: CaseStudy[] = [
     stack: "UX research, onboarding UX, event instrumentation",
     span: "lg:col-span-2",
     icon: WandSparkles,
+    visual: "dots",
   },
   {
     title: "Platform Migration Program",
@@ -216,7 +218,13 @@ export default function Home() {
         <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-6">
           {caseStudies.map((item, index) => (
             <Reveal key={item.title} className={item.span} delay={reduceMotion ? 0 : 0.05 * index}>
-              <CaseStudyCard title={item.title} summary={item.summary} stack={item.stack} icon={item.icon} />
+              <CaseStudyCard
+                title={item.title}
+                summary={item.summary}
+                stack={item.stack}
+                icon={item.icon}
+                visual="dots"
+              />
             </Reveal>
           ))}
         </div>

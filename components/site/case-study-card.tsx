@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, CheckCircle2, Maximize2, type LucideIcon } from "lucide-react";
+import { CursorDotField } from "@/components/site/cursor-dot-field";
 import { ModalShell } from "@/components/ui/modal-shell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,6 +13,7 @@ type CaseStudyCardProps = {
   summary: string;
   stack: string;
   icon: LucideIcon;
+  visual?: "default" | "dots";
   className?: string;
 };
 
@@ -37,7 +39,7 @@ const supportingPoints = [
   },
 ];
 
-export function CaseStudyCard({ title, summary, stack, icon: Icon, className }: CaseStudyCardProps) {
+export function CaseStudyCard({ title, summary, stack, icon: Icon, visual = "default", className }: CaseStudyCardProps) {
   const reduceMotion = useReducedMotion();
   const [mouse, setMouse] = useState({ x: 50, y: 50, active: false });
   const [open, setOpen] = useState(false);
@@ -97,16 +99,24 @@ export function CaseStudyCard({ title, summary, stack, icon: Icon, className }: 
             transition={{ type: "tween", duration: 0.76, ease: [0.22, 1, 0.36, 1] }}
           >
             <Card className="relative flex h-full min-h-[31rem] flex-col overflow-hidden lg:min-h-[34rem]">
+              {visual === "dots" && (
+                <CursorDotField
+                  x={mouse.x}
+                  y={mouse.y}
+                  active={mouse.active}
+                  className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+                />
+              )}
               <div
                 className={`pointer-events-none absolute right-5 top-5 z-30 rounded-md border p-2 transition-all duration-200 ${mouse.active ? "border-white/70 bg-white/70 text-[#0b1320]" : "border-white/20 bg-white/8 text-white/85"}`}
               >
                 <Maximize2 className="size-4" strokeWidth={1.9} />
               </div>
-              <CardHeader>
+              <CardHeader className="relative z-10">
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>{summary}</CardDescription>
               </CardHeader>
-              <CardContent className="flex flex-1 flex-col justify-between gap-8">
+              <CardContent className="relative z-10 flex flex-1 flex-col justify-between gap-8">
                 <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{stack}</p>
                 <div className="relative flex min-h-48 items-center justify-center overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-[#121f3a] via-[#16284b] to-[#0e1830]">
                   <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(132,169,238,0.28),rgba(132,169,238,0)_52%)]" />
