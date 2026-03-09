@@ -10,3 +10,5 @@ Design system instruction:
 
 Always build and update this website with a design-system-first approach. Define and use shared tokens and component variants for buttons, typography, spacing, colors, borders, and states before adding page-level styling. Avoid one-off inline styling that creates visual drift. Every CTA and interactive element must use the same standardized component variants so we never end up with multiple inconsistent button styles.
 Componentization is mandatory: every discrete UI part (for example navbar, hero block, marquee, background layer, section headers, cards, CTA blocks) must be implemented as a reusable component instead of inline page markup. Build pages by composing these reusable components.
+Use shadcn as the base for all UI components wherever possible. Prefer extending or composing shadcn primitives such as Dialog, Sheet, Card, Button, Accordion, and similar building blocks instead of creating custom component foundations from scratch. Custom wrappers are allowed, but their base should still come from shadcn primitives unless there is a documented reason not to.
+

@@ -17,6 +17,8 @@ const buttonVariants = cva(
         secondary:
           "border-white/12 bg-surface/70 text-white hover:bg-surface hover:border-white/20 hover:shadow-[0_10px_24px_rgba(7,17,34,0.55)] focus-visible:ring-ring",
         nav: "border-white/14 bg-white/6 text-white hover:bg-white/10 hover:border-white/22 focus-visible:ring-ring",
+        control:
+          "border-white/12 bg-white/6 text-white hover:bg-white/10 hover:border-white/20 hover:shadow-[0_10px_24px_rgba(7,17,34,0.45)] focus-visible:ring-ring",
         outline:
           "border-white/12 bg-surface/70 text-white hover:bg-surface hover:border-white/20 hover:shadow-[0_10px_24px_rgba(7,17,34,0.55)] focus-visible:ring-ring",
         ghost: "border-transparent bg-transparent text-muted-foreground hover:text-foreground hover:bg-surface/80 focus-visible:ring-ring",
@@ -25,6 +27,7 @@ const buttonVariants = cva(
         default: "h-12 px-6 text-base",
         sm: "h-11 px-5",
         lg: "h-14 px-8 text-[1.08rem]",
+        icon: "h-11 w-11 p-0",
       },
     },
     defaultVariants: {

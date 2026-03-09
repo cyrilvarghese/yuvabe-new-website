@@ -11,9 +11,11 @@ import {
   Chrome,
   Coins,
   CreditCard,
+  Database,
   LayoutDashboard,
   Network,
   Rocket,
+  ShieldCheck,
   Sparkles,
   WandSparkles,
 } from "lucide-react";
@@ -112,14 +114,45 @@ const caseStudies: CaseStudy[] = [
       {
         title: "Clarified the story",
         description: "Shifted the brand from a collection of capabilities to a focused narrative around real-world drone impact.",
+        icon: LayoutDashboard,
       },
       {
         title: "Made complexity usable",
         description: "Simplified navigation, content hierarchy, and application UX so technical depth felt navigable instead of overwhelming.",
+        icon: Network,
       },
       {
         title: "Built credibility across touchpoints",
         description: "Aligned website, brand visuals, and communication assets into one system that reinforced trust at every interaction.",
+        icon: Sparkles,
+      },
+    ],
+    modalGalleryRows: [
+      {
+        title: "Website Screens",
+        items: [
+          {
+            title: "Homepage overview",
+            description: "Placeholder for the primary website screen that introduces GA's positioning and solution breadth.",
+          },
+          {
+            title: "Solutions architecture",
+            description: "Placeholder for a screen showing how product categories and use cases were clarified.",
+          },
+        ],
+      },
+      {
+        title: "Product And Brand Views",
+        items: [
+          {
+            title: "Application interface",
+            description: "Placeholder for a web application or dashboard screen that demonstrates usability improvements.",
+          },
+          {
+            title: "Brand expression",
+            description: "Placeholder for a branded asset or supporting communication touchpoint.",
+          },
+        ],
       },
     ],
   },
@@ -160,14 +193,45 @@ const caseStudies: CaseStudy[] = [
       {
         title: "Made ESG data usable",
         description: "Connected structured and unstructured data into a workflow teams could actually navigate, review, and act on.",
+        icon: Database,
       },
       {
         title: "Applied AI where it mattered",
         description: "Framed machine learning, NLP, and GPT-assisted review as practical leverage for accuracy, not novelty features.",
+        icon: Bot,
       },
       {
         title: "Built trust into reporting",
         description: "Positioned traceability, compliance readiness, and benchmarking as core reasons the platform could support better decisions.",
+        icon: ShieldCheck,
+      },
+    ],
+    modalGalleryRows: [
+      {
+        title: "Platform Screens",
+        items: [
+          {
+            title: "Homepage and positioning",
+            description: "Placeholder for the landing screen that frames Bevolve.ai as an AI-led ESG intelligence platform.",
+          },
+          {
+            title: "Reporting workspace",
+            description: "Placeholder for a core interface showing reporting, review, or compliance workflows.",
+          },
+        ],
+      },
+      {
+        title: "Product Details",
+        items: [
+          {
+            title: "Benchmarking view",
+            description: "Placeholder for benchmarking, comparison, or traceability screens used in decision-making.",
+          },
+          {
+            title: "AI review flow",
+            description: "Placeholder for GPT-assisted review, validation, or insight-generation UI.",
+          },
+        ],
       },
     ],
   },
@@ -396,4 +460,8 @@ export default function Home() {
     </main>
   );
 }
+
+
+
+
 

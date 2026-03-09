@@ -58,7 +58,7 @@ export function ModalShell({ open, onOpenChange, title, children, className }: M
               aria-modal="true"
               aria-label={title}
               className={cn(
-                "relative mx-auto w-full max-w-5xl overflow-hidden rounded-[1.75rem] border border-border/80 bg-[#071221]/96 shadow-[0_32px_120px_rgba(0,0,0,0.45)]",
+                "relative mx-auto w-[min(80vw,88rem)] max-w-none overflow-hidden rounded-[1.75rem] border border-border/80 bg-[#071221]/96 shadow-[0_32px_120px_rgba(0,0,0,0.45)]",
                 className,
               )}
               initial={reduceMotion ? undefined : { opacity: 0, y: 20, scale: 0.985 }}
@@ -70,9 +70,9 @@ export function ModalShell({ open, onOpenChange, title, children, className }: M
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
               <Button
                 type="button"
-                variant="ghost"
-                size="sm"
-                className="absolute right-4 top-4 z-10 h-11 w-11 rounded-2xl border border-white/10 bg-white/6 p-0 text-white hover:bg-white/10"
+                variant="control"
+                size="icon"
+                className="absolute right-4 top-4 z-10"
                 onClick={() => onOpenChange(false)}
               >
                 <X className="size-4" />

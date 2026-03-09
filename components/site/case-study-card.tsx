@@ -1,12 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import {
+  ArrowUpRight,
+  CheckCircle2,
+  ImageIcon,
+  Maximize2,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, CheckCircle2, Maximize2, type LucideIcon } from "lucide-react";
 import { CursorDotField } from "@/components/site/cursor-dot-field";
 import { ModalShell } from "@/components/ui/modal-shell";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 export type CaseStudySection = {
   title: string;
@@ -16,6 +24,17 @@ export type CaseStudySection = {
 export type CaseStudyProofPoint = {
   title: string;
   description: string;
+  icon?: LucideIcon;
+};
+
+export type CaseStudyGalleryItem = {
+  title: string;
+  description: string;
+};
+
+export type CaseStudyGalleryRow = {
+  title: string;
+  items: CaseStudyGalleryItem[];
 };
 
 export type CaseStudyCardProps = {
@@ -29,6 +48,7 @@ export type CaseStudyCardProps = {
   modalOutcomes?: string[];
   modalSections?: CaseStudySection[];
   modalProofPoints?: CaseStudyProofPoint[];
+  modalGalleryRows?: CaseStudyGalleryRow[];
   className?: string;
 };
 
@@ -43,6 +63,7 @@ export function CaseStudyCard({
   modalOutcomes,
   modalSections,
   modalProofPoints,
+  modalGalleryRows,
   className,
 }: CaseStudyCardProps) {
   const reduceMotion = useReducedMotion();
@@ -78,16 +99,69 @@ export function CaseStudyCard({
     {
       title: "Sharpened the narrative",
       description: "Brought the product story, interaction model, and supporting experience into one clearer point of view.",
+      icon: Sparkles,
     },
     {
       title: "Reduced decision friction",
       description: "Turned scattered workflows into a more understandable path for users, operators, or internal teams.",
+      icon: Sparkles,
     },
     {
       title: "Built for what comes next",
       description: "Created a stronger base for future iteration instead of treating the engagement like a one-off delivery.",
+      icon: Sparkles,
     },
   ];
+
+  const galleryRows = modalGalleryRows ?? [
+    {
+      title: "Selected Screens",
+      items: [
+        {
+          title: "Hero view placeholder",
+          description: "Reserved for the main case-study visual or landing screen.",
+        },
+        {
+          title: "Workflow placeholder",
+          description: "Reserved for a supporting product or process screenshot.",
+        },
+      ],
+    },
+    {
+      title: "Product Views",
+      items: [
+        {
+          title: "Dashboard placeholder",
+          description: "Reserved for a key interface or data view.",
+        },
+        {
+          title: "Detail placeholder",
+          description: "Reserved for a secondary screen, flow, or artifact.",
+        },
+      ],
+    },
+  ];
+
+  const getGalleryItemClasses = (rowIndex: number, itemIndex: number) => {
+    const featuredFirst = rowIndex % 2 === 0;
+    const isFeatured = featuredFirst ? itemIndex === 0 : itemIndex === 1;
+
+    return {
+      wrapper: isFeatured ? "md:col-span-7" : "md:col-span-5",
+      frame: "h-[18rem] md:h-[24rem]",
+      badge: "left-5 top-5",
+      inset: isFeatured ? "inset-[5.5%]" : "inset-[6%]",
+      bottomCard: isFeatured
+        ? "inset-x-[14%] bottom-[14%] h-[18%] rounded-[0.85rem]"
+        : "inset-x-[12%] bottom-[14%] h-[18%] rounded-[0.82rem]",
+      leftCard: isFeatured
+        ? "left-[14%] top-[18%] h-[38%] w-[30%] rounded-[0.85rem]"
+        : "left-[12%] top-[18%] h-[38%] w-[32%] rounded-[0.82rem]",
+      rightCard: isFeatured
+        ? "right-[14%] top-[18%] h-[24%] w-[34%] rounded-[0.85rem]"
+        : "right-[12%] top-[18%] h-[24%] w-[34%] rounded-[0.82rem]",
+    };
+  };
 
   const onMove = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (reduceMotion) {
@@ -153,7 +227,11 @@ export function CaseStudyCard({
                 />
               )}
               <div
-                className={`pointer-events-none absolute right-5 top-5 z-30 rounded-md border p-2 transition-all duration-200 ${mouse.active ? "border-white/70 bg-white/70 text-[#0b1320]" : "border-white/20 bg-white/8 text-white/85"}`}
+                className={cn(
+                  buttonVariants({ variant: "control", size: "icon" }),
+                  "pointer-events-none absolute right-5 top-5 z-30",
+                  mouse.active ? "border-white/20 bg-white/10 text-white" : "text-white/85",
+                )}
               >
                 <Maximize2 className="size-4" strokeWidth={1.9} />
               </div>
@@ -210,19 +288,19 @@ export function CaseStudyCard({
           </div>
 
           <div className="grid gap-4 border-b border-border/70 py-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)]">
-            <div className="min-h-[18rem] overflow-hidden rounded-[1.5rem] bg-[linear-gradient(145deg,rgba(34,52,97,0.96),rgba(96,111,171,0.86))] p-6 sm:min-h-[24rem]">
-              <div className="relative flex h-full items-end justify-center rounded-[1.25rem] bg-[radial-gradient(circle_at_30%_75%,rgba(129,103,255,0.28),rgba(129,103,255,0)_34%),linear-gradient(160deg,rgba(17,28,52,0.22),rgba(17,28,52,0.02))]">
-                <div className="absolute left-[16%] top-[16%] h-[62%] w-[40%] rounded-[1.45rem] bg-[#f7f9ff] shadow-[0_28px_80px_rgba(11,15,31,0.22)]" />
-                <div className="absolute left-[49%] top-[38%] h-[22%] w-[26%] rounded-[1rem] bg-[#f7f9ff]/96 shadow-[0_18px_50px_rgba(11,15,31,0.18)]" />
-                <div className="absolute left-[50%] top-[58%] h-[22%] w-[30%] rounded-[1rem] bg-[#f7f9ff]/96 shadow-[0_18px_50px_rgba(11,15,31,0.18)]" />
+            <div className="min-h-[18rem] overflow-hidden rounded-[1.1rem] bg-[linear-gradient(145deg,rgba(34,52,97,0.96),rgba(96,111,171,0.86))] p-5 sm:min-h-[24rem] sm:p-6">
+              <div className="relative flex h-full items-end justify-center rounded-[0.9rem] bg-[radial-gradient(circle_at_30%_75%,rgba(129,103,255,0.28),rgba(129,103,255,0)_34%),linear-gradient(160deg,rgba(17,28,52,0.22),rgba(17,28,52,0.02))]">
+                <div className="absolute left-[16%] top-[16%] h-[62%] w-[40%] rounded-[0.95rem] bg-[#f7f9ff] shadow-[0_28px_80px_rgba(11,15,31,0.22)]" />
+                <div className="absolute left-[49%] top-[38%] h-[22%] w-[26%] rounded-[0.75rem] bg-[#f7f9ff]/96 shadow-[0_18px_50px_rgba(11,15,31,0.18)]" />
+                <div className="absolute left-[50%] top-[58%] h-[22%] w-[30%] rounded-[0.75rem] bg-[#f7f9ff]/96 shadow-[0_18px_50px_rgba(11,15,31,0.18)]" />
               </div>
             </div>
 
-            <div className="min-h-[18rem] rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(10,17,31,0.96),rgba(10,17,31,0.84))] p-6 sm:min-h-[24rem]">
+            <div className="min-h-[18rem] rounded-[1.1rem] bg-[linear-gradient(180deg,rgba(10,17,31,0.92),rgba(10,17,31,0.78))] px-6 py-5 sm:min-h-[24rem] sm:p-6">
               <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Case Breakdown</p>
-              <div className="mt-5 space-y-5">
+              <div className="mt-5 space-y-6">
                 {sections.map((section, index) => (
-                  <div key={section.title} className="border-t border-white/10 pt-4 first:border-t-0 first:pt-0">
+                  <div key={section.title} className="pt-1">
                     <p className="text-xs uppercase tracking-[0.16em] text-[#8ba3cf]">0{index + 1}</p>
                     <p className="mt-2 text-lg font-semibold text-white">{section.title}</p>
                     <p className="mt-2 text-sm leading-6 text-[#b3c0d7]">{section.body}</p>
@@ -232,18 +310,101 @@ export function CaseStudyCard({
             </div>
           </div>
 
-          <div className="grid gap-5 pt-8 md:grid-cols-3">
-            {proofPoints.map((point, index) => (
-              <div key={point.title} className="border-t border-white/10 pt-4">
-                <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">0{index + 1}</p>
-                <p className="mt-3 text-lg font-semibold text-white">{point.title}</p>
-                <p className="mt-3 max-w-sm text-sm leading-6 text-[#b3c0d7]">{point.description}</p>
+          <div className="space-y-6 border-b border-border/70 py-8">
+            {galleryRows.map((row, rowIndex) => (
+              <div key={row.title} className="space-y-4">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">{row.title}</p>
+                  <p className="text-[0.68rem] uppercase tracking-[0.16em] text-[#8ba3cf]">Placeholder</p>
+                </div>
+                <div className="grid gap-5 md:grid-cols-12 md:items-start">
+                  {row.items.map((item, itemIndex) => {
+                    const layout = getGalleryItemClasses(rowIndex, itemIndex);
+
+                    return (
+                      <div key={item.title} className={cn("space-y-3", layout.wrapper)}>
+                        <div
+                          className={cn(
+                            "relative w-full overflow-hidden rounded-[1.05rem] bg-[linear-gradient(145deg,rgba(18,31,61,0.96),rgba(56,81,140,0.82))]",
+                            layout.frame,
+                          )}
+                        >
+                          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(132,169,238,0.22),rgba(132,169,238,0)_44%)]" />
+                          <div
+                            className={cn(
+                              "pointer-events-none absolute rounded-[0.95rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]",
+                              layout.inset,
+                            )}
+                          />
+                          <div
+                            className={cn(
+                              "pointer-events-none absolute inline-flex h-10 items-center gap-2 rounded-full border border-dashed border-white/14 bg-[#071221]/36 px-3 text-[0.66rem] uppercase tracking-[0.16em] text-muted-foreground backdrop-blur-sm",
+                              layout.badge,
+                            )}
+                          >
+                            <ImageIcon className="size-3.5" strokeWidth={1.9} />
+                            Placeholder
+                          </div>
+                          <div
+                            className={cn(
+                              "pointer-events-none absolute bg-[#f7f9ff]/95 shadow-[0_20px_60px_rgba(11,15,31,0.22)]",
+                              layout.bottomCard,
+                            )}
+                          />
+                          <div
+                            className={cn(
+                              "pointer-events-none absolute bg-[#f7f9ff]/92 shadow-[0_20px_60px_rgba(11,15,31,0.18)]",
+                              layout.leftCard,
+                            )}
+                          />
+                          <div
+                            className={cn(
+                              "pointer-events-none absolute bg-[#f7f9ff]/88 shadow-[0_18px_50px_rgba(11,15,31,0.16)]",
+                              layout.rightCard,
+                            )}
+                          />
+                        </div>
+                        <div className="space-y-1 px-1">
+                          <p className="text-base font-semibold text-white">{item.title}</p>
+                          <p className="max-w-xl text-sm leading-6 text-[#b3c0d7]">{item.description}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             ))}
+          </div>
+
+          <div className="grid gap-5 pt-8 md:grid-cols-3">
+            {proofPoints.map((point) => {
+              const ProofIcon = point.icon ?? Sparkles;
+
+              return (
+                <div key={point.title} className="space-y-4 pt-1">
+                  <div
+                    className={cn(
+                      buttonVariants({ variant: "control", size: "icon" }),
+                      "pointer-events-none h-11 w-11 rounded-[0.95rem] border-white/14 bg-white/8",
+                    )}
+                  >
+                    <ProofIcon className="size-4" strokeWidth={1.9} />
+                  </div>
+                  <div>
+                    <p className="text-lg font-semibold text-white">{point.title}</p>
+                    <p className="mt-3 max-w-sm text-sm leading-6 text-[#b3c0d7]">{point.description}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </ModalShell>
     </>
   );
 }
+
+
+
+
 
