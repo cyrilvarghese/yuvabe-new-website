@@ -1,5 +1,6 @@
 "use client";
 
+import type { ComponentProps } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   Apple,
@@ -11,7 +12,6 @@ import {
   Coins,
   CreditCard,
   LayoutDashboard,
-  LucideIcon,
   Network,
   Rocket,
   Sparkles,
@@ -37,13 +37,8 @@ type Service = {
   description: string;
 };
 
-type CaseStudy = {
-  title: string;
-  summary: string;
-  stack: string;
+type CaseStudy = ComponentProps<typeof CaseStudyCard> & {
   span: string;
-  icon: LucideIcon;
-  visual?: "default" | "dots";
 };
 
 type InsightPost = {
@@ -80,37 +75,120 @@ const services: Service[] = [
 
 const caseStudies: CaseStudy[] = [
   {
-    title: "Founder Intelligence Dashboard",
-    summary: "Built a unified decision cockpit so founders could align product and growth moves every week.",
-    stack: "Next.js, Postgres, event pipelines",
+    client: "Aviation technology",
+    title: "General Aeronautics",
+    summary: "Turned a complex drone portfolio into a clearer digital story buyers, partners, and operators could trust faster.",
+    meta: "Positioning, UX/UI, Brand System",
     span: "lg:col-span-4",
     icon: LayoutDashboard,
+    visual: "dots",
+    modalIntro:
+      "General Aeronautics builds drone systems across agriculture, defense, humanitarian response, and warehouse automation. As the business expanded, its digital presence needed to explain that breadth with more clarity, confidence, and usability.",
+    modalOutcomes: [
+      "Reframed a broad product portfolio into a sharper market story.",
+      "Made technical capabilities easier for non-technical audiences to understand.",
+      "Improved credibility across web, applications, and communication assets.",
+      "Created a stronger base for future product and growth decisions.",
+    ],
+    modalSections: [
+      {
+        title: "Context",
+        body: "General Aeronautics had real depth across multiple drone use cases, but that range was hard to communicate cleanly in one digital experience. The company needed a presence that could reflect both engineering sophistication and real-world relevance.",
+      },
+      {
+        title: "Challenge",
+        body: "Without a clearer narrative, technical breadth risked reading as fragmentation. Buyers, stakeholders, and broader audiences had to work too hard to understand where the company led and why its solutions mattered.",
+      },
+      {
+        title: "What we changed",
+        body: "We restructured the website around solutions and use cases, clarified the content hierarchy, refreshed brand expression, and designed more intuitive UX patterns for web applications so the experience felt capable, credible, and easier to navigate.",
+      },
+      {
+        title: "Outcome",
+        body: "The new experience positioned General Aeronautics more clearly as an innovation leader. Its story became easier to understand, its product ecosystem felt more coherent, and its digital presence became a stronger platform for trust, adoption, and future growth.",
+      },
+    ],
+    modalProofPoints: [
+      {
+        title: "Clarified the story",
+        description: "Shifted the brand from a collection of capabilities to a focused narrative around real-world drone impact.",
+      },
+      {
+        title: "Made complexity usable",
+        description: "Simplified navigation, content hierarchy, and application UX so technical depth felt navigable instead of overwhelming.",
+      },
+      {
+        title: "Built credibility across touchpoints",
+        description: "Aligned website, brand visuals, and communication assets into one system that reinforced trust at every interaction.",
+      },
+    ],
   },
   {
-    title: "Ops Copilot for Service Teams",
-    summary: "Converted fragmented workflows into one AI-assisted workspace with faster handoffs and execution.",
-    stack: "React, LLM orchestration, internal tools",
+    client: "ESG intelligence",
+    title: "Bevolve.ai",
+    summary: "Turned fragmented sustainability reporting into an AI-guided system teams could trust for faster, evidence-based decisions.",
+    meta: "AI Integration, ML, ESG Reporting",
     span: "lg:col-span-2",
     icon: Bot,
+    modalIntro:
+      "Bevolve.ai was built to help organizations manage ESG data with more speed, traceability, and intelligence. Instead of treating sustainability reporting as a manual compliance burden, the platform reframed it as a decision system powered by AI, machine learning, and automation.",
+    modalOutcomes: [
+      "Unified ESG data from multiple sources into one more reliable reporting workflow.",
+      "Reduced manual review effort with AI-assisted validation and natural language querying.",
+      "Improved confidence in reporting quality, traceability, and compliance readiness.",
+      "Turned sustainability reporting into a more actionable operating layer for decision-makers.",
+    ],
+    modalSections: [
+      {
+        title: "Context",
+        body: "Organizations were under growing pressure to track environmental, social, and governance performance more rigorously, but the underlying data was scattered across systems, formats, and teams. Bevolve.ai set out to make that process far more intelligent and usable.",
+      },
+      {
+        title: "Challenge",
+        body: "ESG reporting is not difficult only because of regulation. It is difficult because accuracy, consistency, and transparency break down when data collection, validation, and interpretation happen across disconnected workflows.",
+      },
+      {
+        title: "What we changed",
+        body: "We shaped the platform story around intelligent automation, data confidence, and measurable sustainability action. The experience highlighted AI-based integrations, machine learning for quality assurance, NLP-powered querying, and benchmarking tools that made complex ESG workflows feel operational instead of overwhelming.",
+      },
+      {
+        title: "Outcome",
+        body: "The result was a product narrative that moved Bevolve.ai beyond a reporting tool label. It became a clearer AI sustainability platform story: one that promised better visibility, faster review cycles, and stronger confidence for teams making high-stakes ESG decisions.",
+      },
+    ],
+    modalProofPoints: [
+      {
+        title: "Made ESG data usable",
+        description: "Connected structured and unstructured data into a workflow teams could actually navigate, review, and act on.",
+      },
+      {
+        title: "Applied AI where it mattered",
+        description: "Framed machine learning, NLP, and GPT-assisted review as practical leverage for accuracy, not novelty features.",
+      },
+      {
+        title: "Built trust into reporting",
+        description: "Positioned traceability, compliance readiness, and benchmarking as core reasons the platform could support better decisions.",
+      },
+    ],
   },
   {
     title: "Vertical SaaS Replatform",
     summary: "Replatformed a legacy SaaS product into a scalable system that accelerated feature delivery.",
-    stack: "Design system, API layer, CI/CD",
+    meta: "Design systems, APIs, release velocity",
     span: "lg:col-span-2",
     icon: Network,
   },
   {
     title: "Growth Command Center",
     summary: "Unified paid, lifecycle, and product analytics into one system to improve CAC payback decisions.",
-    stack: "Attribution model, warehouse sync, campaign ops",
+    meta: "Analytics, attribution, campaign ops",
     span: "lg:col-span-2",
     icon: BarChart3,
   },
   {
     title: "AI Onboarding Flow",
     summary: "Redesigned activation journeys with AI-guided setup and reduced first-value time for new users.",
-    stack: "UX research, onboarding UX, event instrumentation",
+    meta: "Activation UX, AI guidance, instrumentation",
     span: "lg:col-span-2",
     icon: WandSparkles,
     visual: "dots",
@@ -118,7 +196,7 @@ const caseStudies: CaseStudy[] = [
   {
     title: "Platform Migration Program",
     summary: "Delivered a phased migration across product and data layers without disrupting live customer traffic.",
-    stack: "Platform architecture, migration playbooks, reliability",
+    meta: "Architecture, migration planning, reliability",
     span: "lg:col-span-6",
     icon: Rocket,
   },
@@ -184,12 +262,7 @@ export default function Home() {
             engineering, and growth run in one AI-first execution loop.
           </p>
           <div className="mt-7 flex w-full max-w-sm items-stretch sm:max-w-none sm:items-center sm:justify-center">
-            <Button
-              asChild
-              variant="primary"
-              size="lg"
-              className="w-full sm:w-[14.5rem]"
-            >
+            <Button asChild variant="primary" size="lg" className="w-full sm:w-[14.5rem]">
               <a href="#process">
                 Start Your Build
                 <ArrowRight className="size-4" />
@@ -209,22 +282,14 @@ export default function Home() {
         <Reveal>
           <p className="section-kicker">Work</p>
           <div className="mt-3 max-w-5xl text-balance text-[2rem] font-medium leading-[1.15] tracking-[-0.015em] text-[#a5b3cca1]">
-            <p className="text-white">
-              Launch faster. Reach revenue sooner.
-            </p>{" "}
+            <p className="text-white">Launch faster. Reach revenue sooner.</p>{" "}
             Turn roadmap bets into shipped releases, adoption, and compounding traction with one execution partner.
           </div>
         </Reveal>
         <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-6">
-          {caseStudies.map((item, index) => (
-            <Reveal key={item.title} className={item.span} delay={reduceMotion ? 0 : 0.05 * index}>
-              <CaseStudyCard
-                title={item.title}
-                summary={item.summary}
-                stack={item.stack}
-                icon={item.icon}
-                visual="dots"
-              />
+          {caseStudies.map(({ span, ...item }, index) => (
+            <Reveal key={item.title} className={span} delay={reduceMotion ? 0 : 0.05 * index}>
+              <CaseStudyCard {...item} />
             </Reveal>
           ))}
         </div>
@@ -331,3 +396,4 @@ export default function Home() {
     </main>
   );
 }
+

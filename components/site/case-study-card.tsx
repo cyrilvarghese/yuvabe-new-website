@@ -8,41 +8,86 @@ import { ModalShell } from "@/components/ui/modal-shell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-type CaseStudyCardProps = {
+export type CaseStudySection = {
+  title: string;
+  body: string;
+};
+
+export type CaseStudyProofPoint = {
+  title: string;
+  description: string;
+};
+
+export type CaseStudyCardProps = {
+  client?: string;
   title: string;
   summary: string;
-  stack: string;
+  meta: string;
   icon: LucideIcon;
   visual?: "default" | "dots";
+  modalIntro?: string;
+  modalOutcomes?: string[];
+  modalSections?: CaseStudySection[];
+  modalProofPoints?: CaseStudyProofPoint[];
   className?: string;
 };
 
-const detailPoints = [
-  "Placeholder checklist item for strategic outcome or product value",
-  "Another slot for a proof point, business outcome, or user-facing benefit",
-  "Reserved space for implementation detail once real content is ready",
-  "Flexible layout block for conversion, launch, or workflow impact",
-];
-
-const supportingPoints = [
-  {
-    title: "Point one",
-    description: "Use this area for a concise supporting statement tied to the featured visuals or the customer outcome.",
-  },
-  {
-    title: "Point two",
-    description: "This column can hold a short process note, insight, or metric once the actual case study is written.",
-  },
-  {
-    title: "Point three",
-    description: "Keep this block brief and useful so the modal reads like an editorial overview instead of a grid of cards.",
-  },
-];
-
-export function CaseStudyCard({ title, summary, stack, icon: Icon, visual = "default", className }: CaseStudyCardProps) {
+export function CaseStudyCard({
+  client,
+  title,
+  summary,
+  meta,
+  icon: Icon,
+  visual = "default",
+  modalIntro,
+  modalOutcomes,
+  modalSections,
+  modalProofPoints,
+  className,
+}: CaseStudyCardProps) {
   const reduceMotion = useReducedMotion();
   const [mouse, setMouse] = useState({ x: 50, y: 50, active: false });
   const [open, setOpen] = useState(false);
+
+  const outcomes = modalOutcomes ?? [
+    "Created a clearer story around the product, team, and strategic value.",
+    `Focused the experience around ${meta.toLowerCase()} to reduce friction and improve comprehension.`,
+    "Built a stronger foundation for future launches, iteration, and growth.",
+  ];
+
+  const sections = modalSections ?? [
+    {
+      title: "Context",
+      body: `${title} needed a more coherent narrative across product, experience, and communication as the scope of the work expanded.`,
+    },
+    {
+      title: "Challenge",
+      body: "The opportunity was not just to ship assets, but to help the business communicate value faster and with more confidence.",
+    },
+    {
+      title: "What we changed",
+      body: "We aligned the experience, supporting systems, and communication touchpoints around what users and stakeholders needed to understand next.",
+    },
+    {
+      title: "Outcome",
+      body: "The result was a sharper story, a more usable experience, and a stronger platform for future growth decisions.",
+    },
+  ];
+
+  const proofPoints = modalProofPoints ?? [
+    {
+      title: "Sharpened the narrative",
+      description: "Brought the product story, interaction model, and supporting experience into one clearer point of view.",
+    },
+    {
+      title: "Reduced decision friction",
+      description: "Turned scattered workflows into a more understandable path for users, operators, or internal teams.",
+    },
+    {
+      title: "Built for what comes next",
+      description: "Created a stronger base for future iteration instead of treating the engagement like a one-off delivery.",
+    },
+  ];
 
   const onMove = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (reduceMotion) {
@@ -113,11 +158,12 @@ export function CaseStudyCard({ title, summary, stack, icon: Icon, visual = "def
                 <Maximize2 className="size-4" strokeWidth={1.9} />
               </div>
               <CardHeader className="relative z-10">
+                {client ? <p className="text-xs uppercase tracking-[0.16em] text-[#8ba3cf]">{client}</p> : null}
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>{summary}</CardDescription>
               </CardHeader>
               <CardContent className="relative z-10 flex flex-1 flex-col justify-between gap-8">
-                <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{stack}</p>
+                <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{meta}</p>
                 <div className="relative flex min-h-48 items-center justify-center overflow-hidden rounded-xl border border-border/70 bg-gradient-to-br from-[#121f3a] via-[#16284b] to-[#0e1830]">
                   <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(132,169,238,0.28),rgba(132,169,238,0)_52%)]" />
                   <Icon className="relative z-10 size-28 text-white/82 lg:size-36" strokeWidth={1.45} />
@@ -133,25 +179,26 @@ export function CaseStudyCard({ title, summary, stack, icon: Icon, visual = "def
           <div className="border-b border-border/70 pb-8">
             <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.8fr)] lg:items-start">
               <div>
+                {client ? <p className="text-xs uppercase tracking-[0.18em] text-[#8ba3cf]">{client}</p> : null}
                 <h2 className="max-w-2xl font-title text-[clamp(2rem,4vw,3.4rem)] leading-[0.95] text-white">{title}</h2>
-                <p className="mt-4 max-w-2xl text-base leading-7 text-[#b3c0d7] sm:text-lg">{summary}</p>
+                <p className="mt-4 max-w-2xl text-base leading-7 text-[#b3c0d7] sm:text-lg">{modalIntro ?? summary}</p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                   <Button asChild variant="primary" size="lg">
                     <a href="#process">
-                      Explore concept
+                      Book a Founder Call
                       <ArrowUpRight className="size-4" />
                     </a>
                   </Button>
                   <Button asChild variant="secondary" size="lg">
-                    <a href="#work">View all work</a>
+                    <a href="#work">View more work</a>
                   </Button>
                 </div>
               </div>
 
               <div>
-                <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Checklist</p>
+                <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Outcomes</p>
                 <ul className="mt-3 space-y-3 text-sm leading-6 text-[#d8e4fa] sm:text-[0.95rem]">
-                  {detailPoints.map((point) => (
+                  {outcomes.map((point) => (
                     <li key={point} className="flex gap-3">
                       <CheckCircle2 className="mt-1 size-4 shrink-0 text-[#8cb8ff]" />
                       <span>{point}</span>
@@ -162,7 +209,7 @@ export function CaseStudyCard({ title, summary, stack, icon: Icon, visual = "def
             </div>
           </div>
 
-          <div className="grid gap-4 border-b border-border/70 py-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(17rem,0.8fr)]">
+          <div className="grid gap-4 border-b border-border/70 py-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)]">
             <div className="min-h-[18rem] overflow-hidden rounded-[1.5rem] bg-[linear-gradient(145deg,rgba(34,52,97,0.96),rgba(96,111,171,0.86))] p-6 sm:min-h-[24rem]">
               <div className="relative flex h-full items-end justify-center rounded-[1.25rem] bg-[radial-gradient(circle_at_30%_75%,rgba(129,103,255,0.28),rgba(129,103,255,0)_34%),linear-gradient(160deg,rgba(17,28,52,0.22),rgba(17,28,52,0.02))]">
                 <div className="absolute left-[16%] top-[16%] h-[62%] w-[40%] rounded-[1.45rem] bg-[#f7f9ff] shadow-[0_28px_80px_rgba(11,15,31,0.22)]" />
@@ -171,24 +218,22 @@ export function CaseStudyCard({ title, summary, stack, icon: Icon, visual = "def
               </div>
             </div>
 
-            <div className="min-h-[18rem] overflow-hidden rounded-[1.5rem] bg-[linear-gradient(145deg,rgba(41,45,60,0.94),rgba(189,159,80,0.5))] p-6 sm:min-h-[24rem]">
-              <div className="flex h-full items-center justify-center rounded-[1.25rem] bg-[radial-gradient(circle_at_50%_80%,rgba(255,220,120,0.22),rgba(255,220,120,0)_34%),linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0.08))]">
-                <div className="grid w-full max-w-[18rem] gap-3 rounded-[1.1rem] bg-[#f7f9ff]/96 p-4 text-[#1d2940] shadow-[0_22px_60px_rgba(10,15,28,0.18)]">
-                  <div className="h-3 w-24 rounded-full bg-[#c9d2e6]" />
-                  <div className="h-10 rounded-md border border-[#d9e1f0]" />
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="h-8 rounded-md bg-[#eef2fb]" />
-                    <div className="h-8 rounded-md bg-[#eef2fb]" />
-                    <div className="h-8 rounded-md bg-[#eef2fb]" />
+            <div className="min-h-[18rem] rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(10,17,31,0.96),rgba(10,17,31,0.84))] p-6 sm:min-h-[24rem]">
+              <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Case Breakdown</p>
+              <div className="mt-5 space-y-5">
+                {sections.map((section, index) => (
+                  <div key={section.title} className="border-t border-white/10 pt-4 first:border-t-0 first:pt-0">
+                    <p className="text-xs uppercase tracking-[0.16em] text-[#8ba3cf]">0{index + 1}</p>
+                    <p className="mt-2 text-lg font-semibold text-white">{section.title}</p>
+                    <p className="mt-2 text-sm leading-6 text-[#b3c0d7]">{section.body}</p>
                   </div>
-                  <div className="h-9 rounded-md bg-[#edf2fb]" />
-                </div>
+                ))}
               </div>
             </div>
           </div>
 
           <div className="grid gap-5 pt-8 md:grid-cols-3">
-            {supportingPoints.map((point, index) => (
+            {proofPoints.map((point, index) => (
               <div key={point.title} className="border-t border-white/10 pt-4">
                 <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">0{index + 1}</p>
                 <p className="mt-3 text-lg font-semibold text-white">{point.title}</p>
