@@ -322,8 +322,8 @@ export default function Home() {
             product faster.
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg lg:text-2xl">
-            We help founders decide what to build, ship faster, and grow with measurable outcomes. Strategy, design,
-            engineering, and growth run in one AI-first execution loop.
+            Built for startups navigating the idea maze. One AI-first partner across strategy, design, engineering,
+            and growth.
           </p>
           <div className="mt-7 flex w-full max-w-sm items-stretch sm:max-w-none sm:items-center sm:justify-center">
             <Button asChild variant="primary" size="lg" className="w-full sm:w-[14.5rem]">
@@ -460,6 +460,7 @@ export default function Home() {
     </main>
   );
 }
+
 
 
 

@@ -58,7 +58,7 @@ export function CaseStudyCard({
   summary,
   meta,
   icon: Icon,
-  visual = "default",
+  visual = "dots",
   modalIntro,
   modalOutcomes,
   modalSections,
@@ -202,11 +202,11 @@ export function CaseStudyCard({
         <div className="relative rounded-xl">
           <motion.div
             aria-hidden
-            className="pointer-events-none absolute inset-x-[10%] -bottom-6 z-0 h-20 rounded-full blur-2xl"
-            animate={reduceMotion ? { opacity: 0 } : { opacity: mouse.active ? 0.55 : 0, scale: mouse.active ? 1 : 0.92 }}
+            className="pointer-events-none absolute inset-x-3 -bottom-5 z-0 h-24 rounded-[1.5rem] blur-2xl"
+            animate={reduceMotion ? { opacity: 0 } : { opacity: mouse.active ? 0.7 : 0, scale: mouse.active ? 1 : 0.96 }}
             transition={{ type: "tween", duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             style={{
-              background: "radial-gradient(circle, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.14) 32%, rgba(255,255,255,0) 74%)",
+              background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.12) 42%, rgba(255,255,255,0) 100%)",
             }}
           />
 
@@ -413,6 +413,8 @@ export function CaseStudyCard({
     </>
   );
 }
+
+
 
 
 
