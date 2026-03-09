@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useAnimationControls, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import logo from "@/app/assets/logo.png";
 import { Button } from "@/components/ui/button";
 
 type NavItem = {
@@ -69,31 +71,11 @@ export function SiteHeader({ navItems }: SiteHeaderProps) {
       <div className="mx-auto flex h-20 w-full max-w-[1440px] items-center gap-3 px-4 sm:h-24 sm:gap-6 sm:px-6 lg:gap-10 lg:px-12">
         <a href="#home" className="flex items-center gap-5">
           <div className="flex items-center gap-3 sm:gap-4">
-            <div className="relative size-11 rounded-full bg-black shadow-[0_6px_18px_rgba(0,0,0,0.45)] sm:size-14">
-              <svg
-                viewBox="0 0 64 64"
-                className="absolute inset-[9px] z-10 text-white sm:inset-[12px]"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden
-              >
-                <path d="M15 16L27 28" stroke="currentColor" strokeWidth="6.6" strokeLinecap="round" />
-                <path d="M28 47L44 23" stroke="currentColor" strokeWidth="6.6" strokeLinecap="round" />
-                <path
-                  d="M42 54H29C26.4 54 24.9 51.1 26.6 49L43.8 26.2"
-                  stroke="currentColor"
-                  strokeWidth="6.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path d="M43.6 45L50 51.2" stroke="currentColor" strokeWidth="6.6" strokeLinecap="round" />
-              </svg>
+            <div className="relative size-11 overflow-hidden rounded-full shadow-[0_6px_18px_rgba(0,0,0,0.45)] sm:size-14">
+              <Image src={logo} alt="Yuvabe logo" fill className="object-cover" priority />
             </div>
             <div className="flex flex-col justify-center">
               <p className="font-title text-[1.95rem] leading-[0.95] text-white sm:text-3xl">Yuvabe</p>
-              <p className="text-[0.56rem] uppercase tracking-[0.2em] text-white/70 sm:text-[0.62rem] sm:tracking-[0.26em]">
-                Studios
-              </p>
             </div>
           </div>
           <span className="hidden h-12 w-px bg-white/55 md:block" />
