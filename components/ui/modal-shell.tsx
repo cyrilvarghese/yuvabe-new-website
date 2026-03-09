@@ -1,9 +1,17 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 type ModalShellProps = {
@@ -17,72 +25,56 @@ type ModalShellProps = {
 export function ModalShell({ open, onOpenChange, title, children, className }: ModalShellProps) {
   const reduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
-
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onOpenChange(false);
-      }
-    };
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleEscape);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleEscape);
-    };
-  }, [open, onOpenChange]);
-
   return (
-    <AnimatePresence>
-      {open ? (
-        <>
-          <motion.div
-            aria-hidden
-            className="fixed inset-0 z-40 bg-[#020611]/72 backdrop-blur-md"
-            initial={reduceMotion ? undefined : { opacity: 0 }}
-            animate={reduceMotion ? undefined : { opacity: 1 }}
-            exit={reduceMotion ? undefined : { opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            onClick={() => onOpenChange(false)}
-          />
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogPortal forceMount>
+        <AnimatePresence>
+          {open ? (
+            <>
+              <DialogOverlay asChild forceMount>
+                <motion.div
+                  aria-hidden
+                  className="fixed inset-0 z-40 bg-[#020611]/72 backdrop-blur-md"
+                  initial={reduceMotion ? undefined : { opacity: 0 }}
+                  animate={reduceMotion ? undefined : { opacity: 1 }}
+                  exit={reduceMotion ? undefined : { opacity: 0 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                />
+              </DialogOverlay>
 
-          <div className="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 lg:p-8">
-            <motion.div
-              role="dialog"
-              aria-modal="true"
-              aria-label={title}
-              className={cn(
-                "relative mx-auto w-[min(80vw,88rem)] max-w-none overflow-hidden rounded-[1.75rem] border border-border/80 bg-[#071221]/96 shadow-[0_32px_120px_rgba(0,0,0,0.45)]",
-                className,
-              )}
-              initial={reduceMotion ? undefined : { opacity: 0, y: 20, scale: 0.985 }}
-              animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
-              exit={reduceMotion ? undefined : { opacity: 0, y: 12, scale: 0.99 }}
-              transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
-              <Button
-                type="button"
-                variant="control"
-                size="icon"
-                className="absolute right-4 top-4 z-10"
-                onClick={() => onOpenChange(false)}
-              >
-                <X className="size-4" />
-                <span className="sr-only">Close case study details</span>
-              </Button>
-              {children}
-            </motion.div>
-          </div>
-        </>
-      ) : null}
-    </AnimatePresence>
+              <div className="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 lg:p-8">
+                <DialogContent asChild forceMount>
+                  <motion.div
+                    className={cn(
+                      "relative mx-auto w-[min(80vw,88rem)] max-w-none overflow-hidden rounded-[1.75rem] border border-border/80 bg-[#071221]/96 shadow-[0_32px_120px_rgba(0,0,0,0.45)]",
+                      className,
+                    )}
+                    initial={reduceMotion ? undefined : { opacity: 0, y: 20, scale: 0.985 }}
+                    animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
+                    exit={reduceMotion ? undefined : { opacity: 0, y: 12, scale: 0.99 }}
+                    transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <DialogTitle className="sr-only">{title}</DialogTitle>
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
+                    <DialogClose asChild>
+                      <Button
+                        type="button"
+                        variant="control"
+                        size="icon"
+                        className="absolute right-4 top-4 z-10"
+                      >
+                        <X className="size-4" />
+                        <span className="sr-only">Close case study details</span>
+                      </Button>
+                    </DialogClose>
+                    {children}
+                  </motion.div>
+                </DialogContent>
+              </div>
+            </>
+          ) : null}
+        </AnimatePresence>
+      </DialogPortal>
+    </Dialog>
   );
 }
