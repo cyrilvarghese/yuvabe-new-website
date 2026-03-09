@@ -202,6 +202,16 @@ export function CaseStudyCard({
         <div className="relative rounded-xl">
           <motion.div
             aria-hidden
+            className="pointer-events-none absolute inset-x-[10%] -bottom-6 z-0 h-20 rounded-full blur-2xl"
+            animate={reduceMotion ? { opacity: 0 } : { opacity: mouse.active ? 0.55 : 0, scale: mouse.active ? 1 : 0.92 }}
+            transition={{ type: "tween", duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              background: "radial-gradient(circle, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.14) 32%, rgba(255,255,255,0) 74%)",
+            }}
+          />
+
+          <motion.div
+            aria-hidden
             className="pointer-events-none absolute inset-0 z-20 rounded-xl p-[1px]"
             style={{
               opacity: reduceMotion ? 0 : mouse.active ? 1 : 0,
@@ -403,6 +413,8 @@ export function CaseStudyCard({
     </>
   );
 }
+
+
 
 
 
