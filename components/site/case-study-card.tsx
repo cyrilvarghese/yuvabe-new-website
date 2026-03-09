@@ -98,7 +98,7 @@ export function CaseStudyCard({ title, summary, stack, icon: Icon, className }: 
           >
             <Card className="relative flex h-full min-h-[31rem] flex-col overflow-hidden lg:min-h-[34rem]">
               <div
-                className={`pointer-events-none absolute right-5 top-5 z-30 rounded-md border border-white/20 bg-white/8 p-2 text-white/85 transition-all duration-200 ${mouse.active ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0"}`}
+                className={`pointer-events-none absolute right-5 top-5 z-30 rounded-md border p-2 transition-all duration-200 ${mouse.active ? "border-white/70 bg-white/70 text-[#0b1320]" : "border-white/20 bg-white/8 text-white/85"}`}
               >
                 <Maximize2 className="size-4" strokeWidth={1.9} />
               </div>
@@ -191,3 +191,4 @@ export function CaseStudyCard({ title, summary, stack, icon: Icon, className }: 
     </>
   );
 }
+
