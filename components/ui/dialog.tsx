@@ -51,7 +51,10 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       data-slot="dialog-content"
-      className={cn("fixed z-50 outline-none", className)}
+      className={cn(
+        "fixed left-1/2 top-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 outline-none",
+        className,
+      )}
       {...props}
     />
   );
@@ -91,3 +94,4 @@ export {
   DialogTitle,
   DialogDescription,
 };
+

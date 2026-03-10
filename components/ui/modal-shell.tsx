@@ -42,11 +42,14 @@ export function ModalShell({ open, onOpenChange, title, children, className }: M
                 />
               </DialogOverlay>
 
-              <div className="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 lg:p-8">
-                <DialogContent asChild forceMount>
+              <DialogContent
+                forceMount
+                className="left-0 top-0 z-50 h-full max-h-none w-full max-w-none translate-x-0 translate-y-0 overflow-y-auto border-0 bg-transparent p-4 shadow-none sm:p-6 lg:p-8"
+              >
+                <div className="flex min-h-full items-start justify-center">
                   <motion.div
                     className={cn(
-                      "relative mx-auto w-[min(80vw,88rem)] max-w-none overflow-hidden rounded-[1.75rem] border border-border/80 bg-[#071221]/96 shadow-[0_32px_120px_rgba(0,0,0,0.45)]",
+                      "relative w-full max-w-[88rem] overflow-hidden rounded-[1.75rem] border border-border/80 bg-[#071221]/96 shadow-[0_32px_120px_rgba(0,0,0,0.45)]",
                       className,
                     )}
                     initial={reduceMotion ? undefined : { opacity: 0, y: 20, scale: 0.985 }}
@@ -61,16 +64,19 @@ export function ModalShell({ open, onOpenChange, title, children, className }: M
                         type="button"
                         variant="control"
                         size="icon"
-                        className="absolute right-4 top-4 z-10"
+                        className="absolute right-4 top-4 z-20"
                       >
                         <X className="size-4" />
                         <span className="sr-only">Close case study details</span>
                       </Button>
                     </DialogClose>
-                    {children}
+
+                    <div className="px-1.5 pb-1.5 sm:px-2 sm:pb-2">
+                      {children}
+                    </div>
                   </motion.div>
-                </DialogContent>
-              </div>
+                </div>
+              </DialogContent>
             </>
           ) : null}
         </AnimatePresence>
@@ -78,3 +84,4 @@ export function ModalShell({ open, onOpenChange, title, children, className }: M
     </Dialog>
   );
 }
+
