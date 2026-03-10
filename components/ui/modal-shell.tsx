@@ -22,7 +22,13 @@ type ModalShellProps = {
   className?: string;
 };
 
-export function ModalShell({ open, onOpenChange, title, children, className }: ModalShellProps) {
+export function ModalShell({
+  open,
+  onOpenChange,
+  title,
+  children,
+  className,
+}: ModalShellProps) {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -71,7 +77,7 @@ export function ModalShell({ open, onOpenChange, title, children, className }: M
                       </Button>
                     </DialogClose>
 
-                    <div className="px-1.5 pb-1.5 sm:px-2 sm:pb-2">
+                    <div className="relative z-10 px-1.5 pb-1.5 sm:px-2 sm:pb-2">
                       {children}
                     </div>
                   </motion.div>

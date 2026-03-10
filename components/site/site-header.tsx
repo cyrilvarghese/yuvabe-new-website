@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useAnimationControls, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
-import logo from "@/app/assets/logo.png";
 import { Button } from "@/components/ui/button";
 
 type NavItem = {
@@ -72,7 +71,7 @@ export function SiteHeader({ navItems }: SiteHeaderProps) {
         <a href="#home" className="flex items-center gap-5">
           <div className="flex items-center gap-3 sm:gap-4">
             <div className="relative size-11 overflow-hidden rounded-full shadow-[0_6px_18px_rgba(0,0,0,0.45)] sm:size-14">
-              <Image src={logo} alt="Yuvabe logo" fill className="object-cover" priority />
+              <Image src="/assets/logo.png" alt="Yuvabe logo" fill className="object-cover" priority />
             </div>
             <div className="flex flex-col justify-center">
               <p className="font-title text-[1.95rem] leading-[0.95] text-white sm:text-3xl">Yuvabe</p>
@@ -140,3 +139,5 @@ export function SiteHeader({ navItems }: SiteHeaderProps) {
     </motion.header>
   );
 }
+
+

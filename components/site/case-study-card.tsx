@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -69,7 +70,9 @@ export function CaseStudyCard({
   const reduceMotion = useReducedMotion();
   const [mouse, setMouse] = useState({ x: 50, y: 50, active: false });
   const [open, setOpen] = useState(false);
+  const showDroneBackdrop = title === "General Aeronautics";
 
+  // Keep the modal useful even when a case study only provides partial content.
   const outcomes = modalOutcomes ?? [
     "Created a clearer story around the product, team, and strategic value.",
     `Focused the experience around ${meta.toLowerCase()} to reduce friction and improve comprehension.`,
@@ -142,6 +145,7 @@ export function CaseStudyCard({
     },
   ];
 
+  // Alternate wide and narrow gallery cards so placeholder layouts feel less repetitive.
   const getGalleryItemClasses = (rowIndex: number, itemIndex: number) => {
     const featuredFirst = rowIndex % 2 === 0;
     const isFeatured = featuredFirst ? itemIndex === 0 : itemIndex === 1;
@@ -163,6 +167,7 @@ export function CaseStudyCard({
     };
   };
 
+  // Track pointer position so the card border glow follows the cursor.
   const onMove = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (reduceMotion) {
       return;
@@ -175,10 +180,12 @@ export function CaseStudyCard({
     setMouse({ x: px, y: py, active: true });
   };
 
+  // Reset the hover state when the pointer leaves the card.
   const onLeave = () => {
     setMouse({ x: 50, y: 50, active: false });
   };
 
+  // Reactivate the hover treatment for keyboard focus and pointer entry.
   const onEnter = () => {
     if (reduceMotion) {
       return;
@@ -189,6 +196,7 @@ export function CaseStudyCard({
 
   return (
     <>
+      {/* Preview card trigger */}
       <motion.button
         type="button"
         className={`block w-full cursor-pointer text-left ${className ?? ""}`}
@@ -263,8 +271,20 @@ export function CaseStudyCard({
       </motion.button>
 
       <ModalShell open={open} onOpenChange={setOpen} title={title}>
-        <div className="px-5 pb-8 pt-16 sm:px-8 lg:px-10 lg:pb-10">
-          <div className="border-b border-border/70 pb-8">
+        <div className="relative isolate overflow-hidden px-5 pb-8 pt-16 sm:px-8 lg:px-10 lg:pb-10">
+          {showDroneBackdrop ? (
+            <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+              <div className="absolute left-[2rem] top-[1.5rem] hidden h-[16rem] w-[26rem] -rotate-[5deg] opacity-[0.15] md:block lg:left-[8rem] lg:top-[-2rem] lg:h-[20rem] lg:w-[34rem]">
+                <Image src="/assets/illustration2.png" alt="" fill sizes="(min-width: 1280px) 544px, (min-width: 1024px) 448px, 320px" className="object-contain mix-blend-screen" draggable={false} />
+              </div>
+              <div className="absolute right-[4rem] top-[5rem] hidden h-[12rem] w-[18rem] rotate-[8deg] opacity-[0.08] lg:block xl:right-[6rem] xl:top-[42rem] xl:h-[15rem] xl:w-[22rem]">
+                <Image src="/assets/illustration3.png" alt="" fill sizes="(min-width: 1280px) 352px, (min-width: 1024px) 304px, 224px" className="object-contain mix-blend-screen" draggable={false} />
+              </div>
+            </div>
+          ) : null}
+
+          {/* Modal hero with intro copy and outcomes */}
+          <div className="relative z-10 border-b border-border/70 pb-8">
             <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.8fr)] lg:items-start">
               <div>
                 {client ? <p className="text-xs uppercase tracking-[0.18em] text-[#8ba3cf]">{client}</p> : null}
@@ -297,7 +317,8 @@ export function CaseStudyCard({
             </div>
           </div>
 
-          <div className="grid gap-4 border-b border-border/70 py-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)]">
+          {/* Visual summary and breakdown narrative */}
+          <div className="relative z-10 grid gap-4 border-b border-border/70 py-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)]">
             <div className="min-h-[18rem] overflow-hidden rounded-[1.1rem] bg-[linear-gradient(145deg,rgba(34,52,97,0.96),rgba(96,111,171,0.86))] p-5 sm:min-h-[24rem] sm:p-6">
               <div className="relative flex h-full items-end justify-center rounded-[0.9rem] bg-[radial-gradient(circle_at_30%_75%,rgba(129,103,255,0.28),rgba(129,103,255,0)_34%),linear-gradient(160deg,rgba(17,28,52,0.22),rgba(17,28,52,0.02))]">
                 <div className="absolute left-[16%] top-[16%] h-[62%] w-[40%] rounded-[0.95rem] bg-[#f7f9ff] shadow-[0_28px_80px_rgba(11,15,31,0.22)]" />
@@ -306,9 +327,19 @@ export function CaseStudyCard({
               </div>
             </div>
 
-            <div className="min-h-[18rem] rounded-[1.1rem] bg-[linear-gradient(180deg,rgba(10,17,31,0.92),rgba(10,17,31,0.78))] px-6 py-5 sm:min-h-[24rem] sm:p-6">
-              <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Case Breakdown</p>
-              <div className="mt-5 space-y-6">
+            <div className="relative min-h-[18rem] overflow-hidden rounded-[1.1rem] bg-[linear-gradient(180deg,rgba(10,17,31,0.92),rgba(10,17,31,0.78))] px-6 py-5 sm:min-h-[24rem] sm:p-6">
+              {showDroneBackdrop ? (
+                <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+                  <div className="absolute right-[-4rem] top-[5.5rem] h-[17rem] w-[24rem] rotate-[6deg] opacity-[0.1] md:right-[-2rem] md:top-[5rem] md:h-[20rem] md:w-[28rem] lg:right-[-4rem] lg:top-[30rem] lg:h-[24rem] lg:w-[34rem]">
+                    <Image src="/assets/illustration1.png" alt="" fill sizes="(min-width: 1280px) 496px, (min-width: 1024px) 416px, 288px" className="object-contain mix-blend-screen" draggable={false} />
+                  </div>
+                </div>
+              ) : null}
+
+              <div className="relative z-10">
+                <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Case Breakdown</p>
+              </div>
+              <div className="relative z-10 mt-5 space-y-6">
                 {sections.map((section, index) => (
                   <div key={section.title} className="pt-1">
                     <p className="text-xs uppercase tracking-[0.16em] text-[#8ba3cf]">0{index + 1}</p>
@@ -320,7 +351,8 @@ export function CaseStudyCard({
             </div>
           </div>
 
-          <div className="space-y-6 border-b border-border/70 py-8">
+          {/* Gallery placeholders for future case-study imagery */}
+          <div className="relative z-10 space-y-6 border-b border-border/70 py-8">
             {galleryRows.map((row, rowIndex) => (
               <div key={row.title} className="space-y-4">
                 <div className="flex items-center justify-between gap-3">
@@ -386,7 +418,8 @@ export function CaseStudyCard({
             ))}
           </div>
 
-          <div className="grid gap-5 pt-8 md:grid-cols-3">
+          {/* Closing proof points that reinforce the outcome of the work */}
+          <div className="relative z-10 grid gap-5 pt-8 md:grid-cols-3">
             {proofPoints.map((point) => {
               const ProofIcon = point.icon ?? Sparkles;
 
@@ -413,6 +446,7 @@ export function CaseStudyCard({
     </>
   );
 }
+
 
 
 

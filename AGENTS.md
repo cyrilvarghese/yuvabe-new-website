@@ -12,3 +12,24 @@ Always build and update this website with a design-system-first approach. Define
 Componentization is mandatory: every discrete UI part (for example navbar, hero block, marquee, background layer, section headers, cards, CTA blocks) must be implemented as a reusable component instead of inline page markup. Build pages by composing these reusable components.
 Use shadcn as the base for all UI components wherever possible. Prefer extending or composing shadcn primitives such as Dialog, Sheet, Card, Button, Accordion, and similar building blocks instead of creating custom component foundations from scratch. Custom wrappers are allowed, but their base should still come from shadcn primitives unless there is a documented reason not to.
 
+Code clarity instruction:
+
+Add short, purposeful comments for each non-trivial method and each major JSX section going forward so component structure is easy to scan. Comments should explain intent, not restate obvious syntax.
+
+Coding principles:
+
+Use DRY, WET, and AHA as complementary heuristics rather than rigid rules.
+
+DRY:
+Keep each important piece of knowledge in one authoritative place when the duplication is clearly the same concept. Use DRY to reduce bug-fix repetition, inconsistent behavior, and scattered business rules.
+
+WET:
+Treat early duplication as acceptable while a pattern is still forming. Writing something twice can be safer than inventing a brittle abstraction too early, especially when the use cases are still meaningfully different.
+
+AHA:
+Avoid Hasty Abstractions. Prefer duplication over the wrong abstraction, optimize for change first, and only extract shared helpers once the repeated pattern is stable and the variation points are clear.
+
+Repo preference:
+Default to AHA-guided decisions. Reach for DRY when the duplication represents stable shared knowledge. Accept a little WET duplication when it keeps the code clearer and avoids premature abstraction. Keep abstractions small, readable, and grounded in real repeated use cases rather than speculative reuse.
+
+
